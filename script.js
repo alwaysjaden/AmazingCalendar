@@ -24,12 +24,14 @@ function CurrentDate() {
 }
 
 
+
     for ( var i=0; i<timeFrame.length; i++) {
         var rowDiv = document.createElement("div");
         rowDiv.setAttribute("class", "row")
         rowDiv.setAttribute("ID", "timeRow");
         divSec.appendChild(rowDiv);
         var timeRow = document.querySelectorAll("#timeRow");
+        
         //left
         var colDateDiv = document.createElement("div");
         colDateDiv.textContent= timeFrame[i];
@@ -44,7 +46,8 @@ function CurrentDate() {
         inputSec.setAttribute("class", "col-lg-8 description textarea");
         inputSec.setAttribute("type", "text");
         inputSec.setAttribute("name", "today-Schedule");
-        inputSec.setAttribute("id", "input"+[i]);
+        inputSec.setAttribute("id", "input");
+        inputSec.setAttribute("value", "");
         timeRow[i].appendChild(inputSec);
         
         // Change Color of text box based on Current Time [ past ] [ present ] [ future ]
@@ -60,33 +63,62 @@ function CurrentDate() {
         }
 
         //Create Save Button
+        var inputEl = document.querySelectorAll("input");
         var saveBtn = document.createElement("button");
         saveBtn.textContent= "Save";
         saveBtn.setAttribute("class", "saveBtn ");
-        saveBtn.setAttribute("style", "border = solid black");
+        saveBtn.setAttribute("onclick", "saveToLocal()");
         saveBtn.setAttribute("style", "id = Btn"+[i]);
         timeRow[i].appendChild(saveBtn);   
-         
+
+        
+        
         };
 
-       var savebtn = document.querySelectorAll("button");
-       var inputEl0 = document.getElementById("input0");
+        var savebtn = document.querySelectorAll("button");
+        var inputEl = document.querySelectorAll("input");
+       
+        console.log(inputEl.value)
+    
+    SavedSchedule ()
+
+    function saveToLocal(){
+       
+        var scheduleList = {
+            Time: "9am", // need to set value for the TIME
+            Schedules : inputEl[0].value.trim() // need to set Value from input Value
+            // inputEl[0].value.trim()
+        };
+    
+        console.log(scheduleList);
+    
+    localStorage.setItem("schedule", JSON.stringify(scheduleList));
+    };
+
+
+    function SavedSchedule () {
+        var allSchedules = localStorage.getItem("schedule"); 
+
+        console.log(allSchedules)
+        allSchedules = JSON.parse(allSchedules);
+        inputEl[0].setAttribute("value", allSchedules.Schedules);
+    }
 
     // get input value to be set as object's value in schedule
     // get ID Value to be entered as TIME value
 
        
-       savebtn[0].addEventListener("click",function(){
-            var scheduleList = {
+    //    savebtn.addEventListener("click",function(){
+    //         var scheduleList = {
                 
-                TIME : timeFrame[0],
-                Schedules : inputEl0.value.trim()
-            };
+    //             TIME : timeFrame[0],
+    //             Schedules : inputEl0.value.trim()
+    //         };
         
-            console.log("1222");
+    //         console.log("1222");
         
-        localStorage.setItem("schedule1", JSON.stringify(scheduleList));
-        });
+    //     localStorage.setItem("schedule1", JSON.stringify(scheduleList));
+    //     });
     
        
 
