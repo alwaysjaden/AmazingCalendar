@@ -43,12 +43,10 @@ function CurrentDate() {
         var inputSec = document.createElement("input");
         inputSec.setAttribute("class", "col-lg-8 description textarea");
         inputSec.setAttribute("type", "text");
-        inputSec.setAttribute("value", "");
-        inputSec.setAttribute("style", "id = input"+[i]);
-        inputSec.textContent = "";
+        inputSec.setAttribute("name", "today-Schedule");
+        inputSec.setAttribute("id", "input"+[i]);
         timeRow[i].appendChild(inputSec);
         
-
         // Change Color of text box based on Current Time [ past ] [ present ] [ future ]
             // if ID < timeValue = past
             // if ID = timeValue = current
@@ -72,26 +70,27 @@ function CurrentDate() {
         };
 
        var savebtn = document.querySelectorAll("button");
-    //    var inputEl = document.getElementsByClassName("input0").value;
+       var inputEl0 = document.getElementById("input0");
 
     // get input value to be set as object's value in schedule
     // get ID Value to be entered as TIME value
 
-       for (var  j=0; j<savebtn.length; j++) {
-       savebtn[j].addEventListener("click",function(){
+       
+       savebtn[0].addEventListener("click",function(){
             var scheduleList = {
                 
-                TIME : timeFrame[j],
-                Schedules : "inputEl"
+                TIME : timeFrame[0],
+                Schedules : inputEl0.value.trim()
             };
         
             console.log("1222");
         
         localStorage.setItem("schedule1", JSON.stringify(scheduleList));
-    });}
-  
+        });
     
-    
+       
+
+
 
    
    
