@@ -1,16 +1,16 @@
 
 
 // using moment.js display current date / day / year in Jumbotron
-
+var timeFrame = [ "9 am", "10 am", "11 am", "12 am", "1 pm", "2 pm", "3 pm", "4 pm", "5 pm", "6 pm"];
+var timeValue = [9,10,11,12,13,14,15,16,17,18]; 
 var contSec = document.getElementsByClassName("container");
 var rowSec = document.getElementsByClassName("timeSec");
 var divSec = document.querySelector("div");
 var timeSecValue = document.getElementsByClassName("time-block");
 var descriptionBox = document.getElementsByClassName("description");
 var currentHour= moment().format('HH');
-var inputBox= document.querySelectorAll("input");
 
-console.log(currentHour)
+console.log(currentHour);
 
 function CurrentDate() {
     var d = new Date();
@@ -22,128 +22,96 @@ function CurrentDate() {
     
 
 }
-CurrentDate();
-
-function schedule() {
-var timeFrame = [ "9 am", "10 am", "11 am", "12 am", "1 pm", "2 pm", "3 pm", "4 pm", "5 pm", "6 pm"];
-var timeValue = [9,10,11,12,13,14,15,16,17,18]; 
-
-// if < class = past
-// if = class = current
-// if > class = future 
 
 
-for ( var i=0; i<timeFrame.length; i++) {
-    var rowDiv = document.createElement("div");
-    rowDiv.setAttribute("class", "row")
-    rowDiv.setAttribute("ID", "timeRow");
-    divSec.appendChild(rowDiv);
-    var timeRow = document.querySelectorAll("#timeRow");
-    //left
-    var colDateDiv = document.createElement("div");
-    colDateDiv.textContent= timeFrame[i];
-    colDateDiv.setAttribute("class", "hour time-block col-lg-2" );
-    colDateDiv.setAttribute("id", timeValue[i]);
-    timeRow[i].appendChild(colDateDiv);
+    for ( var i=0; i<timeFrame.length; i++) {
+        var rowDiv = document.createElement("div");
+        rowDiv.setAttribute("class", "row")
+        rowDiv.setAttribute("ID", "timeRow");
+        divSec.appendChild(rowDiv);
+        var timeRow = document.querySelectorAll("#timeRow");
+        //left
+        var colDateDiv = document.createElement("div");
+        colDateDiv.textContent= timeFrame[i];
+        colDateDiv.setAttribute("class", "hour time-block col-lg-2" );
+        colDateDiv.setAttribute("id", timeValue[i]);
+        timeRow[i].appendChild(colDateDiv);
 
-    // current timeValue = currentHour 
+        // current timeValue = currentHour 
 
-    // middle 
-    var inputSec = document.createElement("input");
-    inputSec.setAttribute("class", "col-lg-8 description textarea");
-    inputSec.setAttribute("type", "text");
-    inputSec.setAttribute("id", timeValue[i]);
-    inputSec.textContent = "";
-    timeRow[i].appendChild(inputSec);
-
-    console.log(inputSec.textContent);
-
-    if ( timeValue[i] === currentHour)
-    { inputSec.setAttribute("class","present");
-    } else if (timeValue[i] <= currentHour) {
-        inputSec.setAttribute("class","past");
-    } else { 
-        inputSec.setAttribute("class","future");
-    }
-
-    //right
-    var lockSec = document.createElement("button");
-    lockSec.textContent= "Save";
-    lockSec.setAttribute("class", "saveBtn ");
-    lockSec.setAttribute("style", "border = solid black");
-    timeRow[i].appendChild(lockSec);  
-   
-
-    lockSec.addEventListener("click",function(){
-        var scheduleTime = inputBox.id;
-        var schedule = inputSec.value;
-            //check of error 
+        // Create Schedule Message Board 
+        var inputSec = document.createElement("input");
+        inputSec.setAttribute("class", "col-lg-8 description textarea");
+        inputSec.setAttribute("type", "text");
+        inputSec.setAttribute("value", "");
+        inputSec.setAttribute("style", "id = input"+[i]);
+        inputSec.textContent = "";
+        timeRow[i].appendChild(inputSec);
         
-        var schedules = {
-            time: scheduleTime,
-            Schedule: schedule
-            }
-            console.log(schedules);
+
+        // Change Color of text box based on Current Time [ past ] [ present ] [ future ]
+            // if ID < timeValue = past
+            // if ID = timeValue = current
+            // if ID > timeValue = future 
+        if ( timeValue[i] === currentHour)
+        { inputSec.setAttribute("class","present col-lg-8 description textarea");
+        } else if (timeValue[i] <= currentHour) {
+            inputSec.setAttribute("class","past col-lg-8 description textarea");
+        } else { 
+            inputSec.setAttribute("class","future col-lg-8 description textarea");
         }
+
+        //Create Save Button
+        var saveBtn = document.createElement("button");
+        saveBtn.textContent= "Save";
+        saveBtn.setAttribute("class", "saveBtn ");
+        saveBtn.setAttribute("style", "border = solid black");
+        saveBtn.setAttribute("style", "id = Btn"+[i]);
+        timeRow[i].appendChild(saveBtn);   
+         
+        };
+
+       var savebtn = document.querySelectorAll("button");
+    //    var inputEl = document.getElementsByClassName("input0").value;
+
+    // get input value to be set as object's value in schedule
+    // get ID Value to be entered as TIME value
+
+       for (var  j=0; j<savebtn.length; j++) {
+       savebtn[j].addEventListener("click",function(){
+            var scheduleList = {
+                
+                TIME : timeFrame[j],
+                Schedules : "inputEl"
+            };
         
-        // // // store value to local storage.
-        // localStorage.setItem("schedule", JSON.stringify(allSchedules));
-        // //Get
-        // var allScores = localStorage.getItem("allScores");
-        // if (allScores ===null){
-        //     allScores = [];
-        // } else {
-        //     allScores = JSON.parse(allScores);          
-        // }
-
-        // //Set
-        // allSchedules.push(schedules);
-        //     localStorage.setItem("allScores", allSchedules);
+            console.log("1222");
+        
+        localStorage.setItem("schedule1", JSON.stringify(scheduleList));
+    });}
+  
     
-        );
-
-}
-};
-
-schedule() 
-
-
-
-
-// color change attribut based on current time 
-
-// var timeValue = document.getElementById('').id
-
-
-
-
-
-
-// function ColorChange() {
-
-//     var timeSecValue = 
     
-//  }
 
-// lockSec.onclick =function (){
+   
+   
+    
+  
 
-// }
+  
 
-// make variables of Work time table 
-    //  Parsing time into object
+
+    
+
+
+
 
 
 // create time based 
     // time section + Input box + Click Function Box
 
 
-    // time : list of time from 9am - 6pm
-    // input Box: basic input box
-        // start with pulling stored data from local storage 
-        // color changes based on current time 
-            // passed = gray
-            // Current = Red
-            // Future = Green
+    
     // Click Function Box
         // on-click event to store input box's context
         // on-click icon shape change 
@@ -164,15 +132,3 @@ schedule()
     // }
 
 
-//     var mode = "dark";
-
-// themeSwitcher.addEventListener("click", function() {
-//   if (mode === "dark") {
-//     mode = "light";
-//     container.setAttribute("class", "light");
-//   }
-//   else {
-//     mode = "dark";
-//     container.setAttribute("class", "dark");
-//   }
-// });
