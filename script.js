@@ -82,43 +82,27 @@ function CurrentDate() {
     
     SavedSchedule ()
 
+
+    // Save input Value to local storage funtion
     function saveToLocal(){
        
         var scheduleList = {
-            Time: "9am", // need to set value for the TIME
-            Schedules : inputEl[0].value.trim() // need to set Value from input Value
+            schedule9am : inputEl[0].value // need to set Value from input Value
             // inputEl[0].value.trim()
         };
-    
-        console.log(scheduleList);
-    
     localStorage.setItem("schedule", JSON.stringify(scheduleList));
     };
 
-
+    // display local storage value function
     function SavedSchedule () {
         var allSchedules = localStorage.getItem("schedule"); 
 
         console.log(allSchedules)
         allSchedules = JSON.parse(allSchedules);
-        inputEl[0].setAttribute("value", allSchedules.Schedules);
+        inputEl[0].setAttribute("value", allSchedules.schedule9am);
     }
 
-    // get input value to be set as object's value in schedule
-    // get ID Value to be entered as TIME value
 
-       
-    //    savebtn.addEventListener("click",function(){
-    //         var scheduleList = {
-                
-    //             TIME : timeFrame[0],
-    //             Schedules : inputEl0.value.trim()
-    //         };
-        
-    //         console.log("1222");
-        
-    //     localStorage.setItem("schedule1", JSON.stringify(scheduleList));
-    //     });
     
        
 
@@ -135,31 +119,5 @@ function CurrentDate() {
     
 
 
-
-
-
-// create time based 
-    // time section + Input box + Click Function Box
-
-
-    
-    // Click Function Box
-        // on-click event to store input box's context
-        // on-click icon shape change 
-
-
-
-    //     // This line of jQuery selects the div with the matching id (#drink-options)
-    // var drinkDiv = $("#drink-options");
-
-    // // For Loop then loops through our total drink list...
-    // for (var i = 0; i < drinkList.length; i++) {
-
-    //   // It then creates a new div for each drink. Note we create divs and add the content in the same line.
-    //   var newDrinkDiv = $("<div>" + drinkList[i] + "</div>");
-
-    //   // It then adds this new div to the drinkList div.
-    //   drinkDiv.append(newDrinkDiv);
-    // }
 
 
