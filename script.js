@@ -6,40 +6,41 @@ var timeValue = [9,10,11,12,13,14,15,16,17,18];
 var contSec = document.getElementsByClassName("container");
 var rowSec = document.getElementsByClassName("timeSec");
 var divSec = document.querySelector("div");
+var divSec = $(".container")
 var timeSecValue = document.getElementsByClassName("time-block");
 var descriptionBox = document.getElementsByClassName("description");
 var currentHour= moment().format('HH');
 
 console.log(currentHour);
 
+ // current timeValue = currentHour 
 function CurrentDate() {
     var d = new Date();
     var fmt1 = 'dddd MMMM Do ';
     var now = moment(d).format(fmt1); 
-    var currentHour= moment().format('h');
-    document.getElementById("currentDay").innerHTML = now ;
-    
-    
+    // var currentHour= moment().format('HH');
+    $("#currentDay").text(now);
+    console.log(now);
+
+    SavedSchedule ()
 
 }
 
 
-
+// need to convert theses to jQuey
     for ( var i=0; i<timeFrame.length; i++) {
-        var rowDiv = document.createElement("div");
-        rowDiv.setAttribute("class", "row")
-        rowDiv.setAttribute("ID", "timeRow");
-        divSec.appendChild(rowDiv);
+        var rowDiv = $("<div class = row id = timeRow>"+"</div>");
+        divSec.append(rowDiv);
         var timeRow = document.querySelectorAll("#timeRow");
         
-        //left
+        //Time Display
         var colDateDiv = document.createElement("div");
         colDateDiv.textContent= timeFrame[i];
         colDateDiv.setAttribute("class", "hour time-block col-lg-2" );
         colDateDiv.setAttribute("id", timeValue[i]);
         timeRow[i].appendChild(colDateDiv);
 
-        // current timeValue = currentHour 
+       
 
         // Create Schedule Message Board 
         var inputSec = document.createElement("input");
@@ -47,7 +48,7 @@ function CurrentDate() {
         inputSec.setAttribute("type", "text");
         inputSec.setAttribute("name", "today-Schedule");
         inputSec.setAttribute("id", "input");
-        inputSec.setAttribute("value", "");
+        inputSec.setAttribute("placeholder", "No Schedule");
         timeRow[i].appendChild(inputSec);
         
         // Change Color of text box based on Current Time [ past ] [ present ] [ future ]
@@ -63,25 +64,23 @@ function CurrentDate() {
         }
         //Create Save Button
         var inputEl = document.querySelectorAll("input");
+        var saveBtn = $("<button>")
         var saveBtn = document.createElement("button");
+        //give name for the button
         saveBtn.textContent= "Save";
+        // set class and On-Click Function 
         saveBtn.setAttribute("class", "saveBtn ");
         saveBtn.setAttribute("onclick", "saveToLocal()");
         saveBtn.setAttribute("style", "id = Btn"+[i]);
+        // Append button to html
         timeRow[i].appendChild(saveBtn);   
-        };
+        };    
 
-        var savebtn = document.querySelectorAll("button");
-        var inputEl = document.querySelectorAll("input");
-       
-        console.log(inputEl.value)
-    
-    SavedSchedule ()
-console.log(inputEl.length);
 
     // Save input Value to local storage funtion
     function saveToLocal(){
         // forloop here !! lets Try
+        
         var scheduleList = {
             schedule9am: inputEl[0].value,
             schedule10am: inputEl[1].value,
@@ -97,17 +96,16 @@ console.log(inputEl.length);
             // inputEl[0].value.trim()
         };
     localStorage.setItem("schedule", JSON.stringify(scheduleList));
-    
+
     };
 
     // display local storage value function
     function SavedSchedule () {
         var allSchedules = localStorage.getItem("schedule"); 
 
-        // if (allSchedules===null)
-        // display "" as empty value
-
-        console.log(allSchedules)
+        for (var i = 0 ; i<allSchedules.length; i++){
+        // var allSchedules = localStorage.getItem("schedule"); 
+       // get schedule from Local Storeage to display saved schedule
         allSchedules = JSON.parse(allSchedules);
         inputEl[0].setAttribute("value", allSchedules.schedule9am);
         inputEl[1].setAttribute("value", allSchedules.schedule10am);
@@ -120,9 +118,9 @@ console.log(inputEl.length);
         inputEl[8].setAttribute("value", allSchedules.schedule5pm);
         inputEl[9].setAttribute("value", allSchedules.schedule6pm);
 
-    }
-
-
+    }};
+    CurrentDate()
+    // SavedSchedule ()
     
        
 
