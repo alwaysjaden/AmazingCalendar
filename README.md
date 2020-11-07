@@ -1,6 +1,6 @@
 # AmazingCalendar
 
-![Code Quiz](./assets/images/snapshot.gif?raw=true "CodeQuiz")
+![Code Quiz](./asset/images/snapshot.gif?raw=true "CodeQuiz")
 
 # About This Project
 
