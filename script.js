@@ -29,72 +29,55 @@ function CurrentDate() {
 
 // need to convert theses to jQuey
     for ( var i=0; i<timeFrame.length; i++) {
-        var rowDiv = $("<div class = row id = timeRow>"+"</div>");
+        var rowDiv = $("<div class = 'row' id = timeRow>"+"</div>");
         divSec.append(rowDiv);
-        var timeRow = document.querySelectorAll("#timeRow");
+        // ser variable to select nth divs
+        var timeblock = $(divSec).children('div').eq(i);
         
-        //Time Display
-        var colDateDiv = document.createElement("div");
-        colDateDiv.textContent= timeFrame[i];
-        colDateDiv.setAttribute("class", "hour time-block col-lg-2" );
-        colDateDiv.setAttribute("id", timeValue[i]);
-        timeRow[i].appendChild(colDateDiv);
-
+        //Schedule Time  Display
+        var colDateDiv = $("<div class ='hour time-block col-lg-2'>").text(timeFrame[i])
        
-
-        // Create Schedule Message Board 
-        var inputSec = document.createElement("input");
-        inputSec.setAttribute("class", "col-lg-8 description textarea");
-        inputSec.setAttribute("type", "text");
-        inputSec.setAttribute("name", "today-Schedule");
-        inputSec.setAttribute("id", "input");
-        inputSec.setAttribute("placeholder", "No Schedule");
-        timeRow[i].appendChild(inputSec);
+        //  Create Schedule input Section  
+        var inputSec = $("<input class ='col-lg-8 description textArea' type ='text' placeholder = 'No Schedule'>")
+        inputSec.attr("id",timeValue[i])
         
-        // Change Color of text box based on Current Time [ past ] [ present ] [ future ]
-            // if ID < timeValue = past
-            // if ID = timeValue = current
-            // if ID > timeValue = future 
-        if ( timeValue[i] == currentHour)
-        { inputSec.setAttribute("class","present col-lg-8 description textarea");
-        } else if (timeValue[i] <= currentHour) {
-            inputSec.setAttribute("class","past col-lg-8 description textarea");
-        } else { 
-            inputSec.setAttribute("class","future col-lg-8 description textarea");
-        }
+        // Change calss attribute of input box based on Current Time [ past ] [ present ] [ future ]
+            // if ID < timeValue = past if ID = timeValue = current if ID > timeValue = future 
+      
         //Create Save Button
         var inputEl = document.querySelectorAll("input");
-        var saveBtn = $("<button>")
-        var saveBtn = document.createElement("button");
-        //give name for the button
-        saveBtn.textContent= "Save";
-        // set class and On-Click Function 
-        saveBtn.setAttribute("class", "saveBtn ");
-        saveBtn.setAttribute("onclick", "saveToLocal()");
-        saveBtn.setAttribute("style", "id = Btn"+[i]);
-        // Append button to html
-        timeRow[i].appendChild(saveBtn);   
+        var saveBtn = $("<button class ='saveBtn' onclick='saveToLocal()'>").text("save");
+        saveBtn.attr("style", "id = Btn"+[i]);
+        // Append button to each row divs
+        timeblock.append(colDateDiv,inputSec,saveBtn);   
+
+        if ( timeValue[i] == currentHour)
+        { $(".textArea").attr("class","present col-lg-8 description textarea");
+        } else if (timeValue[i] <= currentHour) {
+            $(".textArea").attr("class","past col-lg-8 description textarea");
+        } else { 
+            $(".textArea").attr("class","future col-lg-8 description textarea");
+        }
         };    
 
 
     // Save input Value to local storage funtion
     function saveToLocal(){
         // forloop here !! lets Try
-        
+        // var timeblock = $(divSec).children('div').eq(i);
         var scheduleList = {
-            schedule9am: inputEl[0].value,
-            schedule10am: inputEl[1].value,
-            schedule11am: inputEl[2].value,
-            schedule12pm: inputEl[3].value, 
-            schedule1pm: inputEl[4].value, 
-            schedule2pm: inputEl[5].value, 
-            schedule3pm: inputEl[6].value, 
-            schedule4pm: inputEl[7].value,
-            schedule5pm: inputEl[8].value, 
-            schedule6pm: inputEl[9].value,  
-             // need to set Value from input Value
-            // inputEl[0].value.trim()
-        };
+            schedule9am: $("#schedule0").val(),
+            schedule10am: $("#schedule1").val(),
+            schedule11am: $("#schedule2").val(),
+            schedule12pm: $("#schedule3").val(),
+            schedule1pm: $("#schedule4").val(),
+            schedule2pm: $("#schedule5").val(),
+            schedule3pm: $("#schedule6").val(),
+            schedule4pm: $("#schedule7").val(),
+            schedule5pm: $("#schedule8").val(),
+            schedule6pm: $("#schedule9").val(),
+        }
+       
     localStorage.setItem("schedule", JSON.stringify(scheduleList));
 
     };
@@ -103,9 +86,10 @@ function CurrentDate() {
     function SavedSchedule () {
         var allSchedules = localStorage.getItem("schedule"); 
 
-        for (var i = 0 ; i<allSchedules.length; i++){
+        // for (var i = 0 ; i<allSchedules.length; i++){
         // var allSchedules = localStorage.getItem("schedule"); 
        // get schedule from Local Storeage to display saved schedule
+
         allSchedules = JSON.parse(allSchedules);
         inputEl[0].setAttribute("value", allSchedules.schedule9am);
         inputEl[1].setAttribute("value", allSchedules.schedule10am);
@@ -117,8 +101,10 @@ function CurrentDate() {
         inputEl[7].setAttribute("value", allSchedules.schedule4pm);
         inputEl[8].setAttribute("value", allSchedules.schedule5pm);
         inputEl[9].setAttribute("value", allSchedules.schedule6pm);
+     
 
-    }};
+    // }
+};
     CurrentDate()
     // SavedSchedule ()
     
