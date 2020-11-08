@@ -1,6 +1,6 @@
 # AmazingCalendar
 
-![Amazing Calendar](/asset/images/snapshot.gif?raw=true "Amazing Calendar")
+![Amazing Calendar](./asset/images/snapshot.gif?raw=true "Amazing Calendar")
 
 # About This Project
 
