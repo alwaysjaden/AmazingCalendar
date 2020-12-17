@@ -100,18 +100,7 @@ function CurrentDate() {
        $("#schedule7").attr("value", allSchedules.schedule4pm);
        $("#schedule8").attr("value", allSchedules.schedule5pm);
        $("#schedule9").attr("value", allSchedules.schedule6pm);
-        // allSchedules = JSON.parse(allSchedules);
-        // inputEl[0].setAttribute("value", allSchedules.schedule9am);
-        // inputEl[1].setAttribute("value", allSchedules.schedule10am);
-        // inputEl[2].setAttribute("value", allSchedules.schedule11am);
-        // inputEl[3].setAttribute("value", allSchedules.schedule12pm);
-        // inputEl[4].setAttribute("value", allSchedules.schedule1pm);
-        // inputEl[5].setAttribute("value", allSchedules.schedule2pm);
-        // inputEl[6].setAttribute("value", allSchedules.schedule3pm);
-        // inputEl[7].setAttribute("value", allSchedules.schedule4pm);
-        // inputEl[8].setAttribute("value", allSchedules.schedule5pm);
-        // inputEl[9].setAttribute("value", allSchedules.schedule6pm);
-     
+
 
     // }
 };
